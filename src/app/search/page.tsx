@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Question } from "@/types";
 import { QuestionCard } from "@/components/question-card";
+import Link from "next/link";
 import { SearchBar } from "@/components/search-bar";
 import { Suspense } from "react";
 import { Search as SearchIcon, FilterX } from "lucide-react";
@@ -78,14 +79,22 @@ export default async function SearchPage({
             </div>
           </div>
         ) : (
-          <div className="py-24 text-center glass rounded-2xl flex flex-col items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <FilterX className="h-8 w-8 text-muted-foreground" />
+          <div className="flex flex-col items-center justify-center py-24 text-center w-full px-4 glass rounded-2xl">
+            <div className="h-16 w-16 rounded-full bg-muted/50 flex items-center justify-center mb-5 shadow-sm border border-border/50 ring-1 ring-border/20">
+              <span className="text-3xl">📭</span>
             </div>
-            <h3 className="text-lg font-semibold mb-2">No results found</h3>
-            <p className="text-muted-foreground text-sm max-w-md mx-auto">
-              We couldn't find any questions matching your criteria. Try using different keywords or checking your spelling.
+            <h3 className="text-xl font-bold mb-3 text-foreground tracking-tight">
+              No questions found
+            </h3>
+            <p className="text-muted-foreground text-sm max-w-sm mb-8 leading-relaxed">
+              Looks like no one has submitted questions for this yet. You can be the first to help your juniors 🚀
             </p>
+            <Link 
+              href="/submit" 
+              className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] hover:-translate-y-0.5"
+            >
+              Submit Your Questions
+            </Link>
           </div>
         )}
       </Suspense>
