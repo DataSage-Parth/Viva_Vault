@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t border-border/40 bg-background/50 backdrop-blur-sm pt-16 pb-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          
+
           {/* Brand Section */}
           <div className="space-y-4 lg:col-span-2">
             <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export function Footer() {
                 <GitHub className="h-4 w-4 group-hover:text-violet-500 transition-colors" />
                 <span>GitHub</span>
               </a>
-              <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-blue-500 transition-colors group">
+              <a href="https://www.linkedin.com/in/parth-sharma-ds1605" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-blue-500 transition-colors group">
                 <LinkedIn className="h-4 w-4 group-hover:text-blue-500 transition-colors" />
                 <span>LinkedIn</span>
               </a>
@@ -57,9 +57,9 @@ export function Footer() {
                 <Youtube className="h-4 w-4 group-hover:text-red-500 transition-colors" />
                 <span>YouTube</span>
               </a>
-              <a href="mailto:contact@vivavault.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-indigo-500 transition-colors group pt-2">
+              <a href="mailto:parthsharma6182@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-indigo-500 transition-colors group pt-2">
                 <Mail className="h-4 w-4 group-hover:text-indigo-500 transition-colors" />
-                <span>contact@vivavault.com</span>
+                <span>parthsharma6182@gmail.com</span>
               </a>
             </div>
           </div>
@@ -70,7 +70,7 @@ export function Footer() {
           <p className="flex items-center justify-center gap-2 text-sm font-medium text-foreground">
             Made with <Heart className="h-4 w-4 text-red-500 fill-red-500 animate-pulse" /> for MAD Students
           </p>
-          
+
           <p className="text-xs text-muted-foreground/60 max-w-4xl text-center leading-relaxed">
             This platform is created purely for educational purposes to help students prepare for viva exams. The questions shared here are based on students&apos; personal experiences and may not reflect actual exam content. We do not promote any unfair practices or academic misconduct.
           </p>
