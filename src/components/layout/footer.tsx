@@ -1,4 +1,4 @@
-import { BookOpen, Heart, Github, Linkedin, Youtube, Mail } from "lucide-react";
+import { BookOpen, Heart, Code as GitHub, Briefcase as LinkedIn, MonitorPlay as Youtube, Mail } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
@@ -46,14 +46,14 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-foreground tracking-wider uppercase">Connect</h3>
             <div className="flex flex-col space-y-3">
               <a href="https://github.com/DataSage-Parth/Viva_Vault" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-violet-500 transition-colors group">
-                <Github className="h-4 w-4 group-hover:text-violet-500 transition-colors" />
+                <GitHub className="h-4 w-4 group-hover:text-violet-500 transition-colors" />
                 <span>GitHub</span>
               </a>
               <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-blue-500 transition-colors group">
-                <Linkedin className="h-4 w-4 group-hover:text-blue-500 transition-colors" />
+                <LinkedIn className="h-4 w-4 group-hover:text-blue-500 transition-colors" />
                 <span>LinkedIn</span>
               </a>
-              <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-red-500 transition-colors group">
+              <a href="https://www.youtube.com/@Datapocalypse-01" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-red-500 transition-colors group">
                 <Youtube className="h-4 w-4 group-hover:text-red-500 transition-colors" />
                 <span>YouTube</span>
               </a>
