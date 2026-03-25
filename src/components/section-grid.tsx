@@ -23,8 +23,8 @@ export function SectionGrid({
         </div>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="rounded-xl border border-border/50 bg-muted/30 animate-pulse h-48 w-full"
             />
           ))}
@@ -45,8 +45,8 @@ export function SectionGrid({
         <p className="text-muted-foreground text-sm max-w-sm mb-8 leading-relaxed">
           Looks like no one has submitted questions for this yet. You can be the first to help your juniors 🚀
         </p>
-        <Link 
-          href="/submit" 
+        <Link
+          href="/submit"
           className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] hover:-translate-y-0.5"
         >
           Submit Your Questions
