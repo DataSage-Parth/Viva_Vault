@@ -37,8 +37,8 @@ export default async function Home() {
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
             Master Your{" "}
             <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-              Viva Voce
-            </span>
+              Viva
+            </span> 🚀
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
