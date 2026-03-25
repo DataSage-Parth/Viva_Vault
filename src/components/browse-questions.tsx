@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Question } from "@/types";
 import { SectionGrid } from "@/components/section-grid";
 import {
@@ -18,6 +18,8 @@ interface BrowseQuestionsProps {
 export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
   const [subject, setSubject] = useState<string>("MAD1");
   const [level, setLevel] = useState<string>("1");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const isLevelRequired = ["MAD1", "MAD2", "MLP"].includes(subject);
 
@@ -27,17 +29,30 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
     return true;
   });
 
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(filteredQuestions.length / itemsPerPage);
+  const currentData = filteredQuestions.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold">Browse Questions</h2>
 
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <Select 
-            value={subject} 
+          <Select
+            value={subject}
             onValueChange={(val) => {
               const strVal = val || "MAD1";
               setSubject(strVal);
+              setCurrentPage(1);
               if (!["MAD1", "MAD2", "MLP"].includes(strVal)) {
                 setLevel("");
               } else if (!level) {
@@ -58,7 +73,10 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
           </Select>
 
           {isLevelRequired && (
-            <Select value={level} onValueChange={(val) => setLevel(val || "1")}>
+            <Select value={level} onValueChange={(val) => {
+              setLevel(val || "1");
+              setCurrentPage(1);
+            }}>
               <SelectTrigger className="w-[160px] sm:w-[120px] bg-card/50 backdrop-blur-sm border-border/50">
                 <SelectValue placeholder="Level" />
               </SelectTrigger>
@@ -71,10 +89,48 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
         </div>
       </div>
 
-      <SectionGrid 
-        questions={filteredQuestions} 
-        emptyMessage={`No questions found for ${subject}${isLevelRequired ? ` Level ${level}` : ""}.`} 
-      />
+      <div ref={gridRef} className="scroll-mt-24">
+        <SectionGrid
+          questions={currentData}
+          emptyMessage={`No questions found for ${subject}${isLevelRequired ? ` Level ${level}` : ""}.`}
+        />
+      </div>
+
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center gap-2 mt-8">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="rounded-md px-3 py-1 transition-all duration-300 hover:bg-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-300 disabled:hover:bg-transparent"
+          >
+            Previous
+          </button>
+
+          <div className="flex gap-1">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`rounded-md px-3 py-1 transition-all duration-300 ${
+                  currentPage === page
+                    ? "bg-purple-600 text-white"
+                    : "text-zinc-400 hover:bg-zinc-800"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="rounded-md px-3 py-1 transition-all duration-300 hover:bg-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-300 disabled:hover:bg-transparent"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }

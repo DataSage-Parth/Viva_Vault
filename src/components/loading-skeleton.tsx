@@ -6,8 +6,8 @@ export function LoadingSkeleton() {
       </div>
       <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div 
-            key={i} 
+          <div
+            key={i}
             className="rounded-xl border border-border/40 bg-muted/30 animate-pulse h-40 w-full shadow-sm"
           />
         ))}
