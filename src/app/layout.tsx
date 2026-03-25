@@ -17,18 +17,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VivaVault – MAD Viva Preparation Portal",
-  description:
-    "Explore and contribute previous viva questions for Mobile Application Development (MAD 1 & MAD 2). Search by proctor, topic, or keyword.",
-  keywords: [
-    "MAD viva",
-    "mobile application development",
-    "viva questions",
-    "MAD1",
-    "MAD2",
-    "proctor questions",
-    "exam preparation",
-  ],
+  title: "VivaVault – MAD Viva Prep",
+  description: "Explore real viva questions, learn from others, and ace your viva.",
+  openGraph: {
+    title: "VivaVault – MAD Viva Prep",
+    description: "Explore real viva questions, learn from others, and ace your viva.",
+    url: "https://vivavault.vercel.app",
+    siteName: "VivaVault",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VivaVault Social Image",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VivaVault – MAD Viva Prep",
+    description: "Explore real viva questions, learn from others, and ace your viva.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
