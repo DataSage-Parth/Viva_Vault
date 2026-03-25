@@ -1,0 +1,200 @@
+"use client";
+
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Bookmark,
+  BookmarkCheck,
+  Copy,
+  Share2,
+  Calendar,
+  User,
+  MessageSquare,
+} from "lucide-react";
+import { Question } from "@/types";
+import { format } from "date-fns";
+import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
+
+interface QuestionCardProps {
+  question: Question;
+  highlightTerms?: string[];
+}
+
+function highlightText(text: string, terms: string[]): React.ReactNode {
+  if (!terms.length) return text;
+
+  const regex = new RegExp(
+    `(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+    "gi"
+  );
+  const parts = text.split(regex);
+
+  return parts.map((part, i) => {
+    const isMatch = terms.some(
+      (t) => part.toLowerCase() === t.toLowerCase()
+    );
+    return isMatch ? <mark key={i}>{part}</mark> : part;
+  });
+}
+
+export function QuestionCard({ question, highlightTerms = [] }: QuestionCardProps) {
+  const [bookmarked, setBookmarked] = useState(false);
+
+  useEffect(() => {
+    const bookmarks = JSON.parse(localStorage.getItem("vv-bookmarks") || "[]");
+    setBookmarked(bookmarks.includes(question.id));
+  }, [question.id]);
+
+  const toggleBookmark = useCallback(() => {
+    const bookmarks: string[] = JSON.parse(
+      localStorage.getItem("vv-bookmarks") || "[]"
+    );
+    let updated: string[];
+    if (bookmarks.includes(question.id)) {
+      updated = bookmarks.filter((id) => id !== question.id);
+      toast.info("Bookmark removed");
+    } else {
+      updated = [...bookmarks, question.id];
+      toast.success("Question bookmarked!");
+    }
+    localStorage.setItem("vv-bookmarks", JSON.stringify(updated));
+    setBookmarked(!bookmarked);
+  }, [question.id, bookmarked]);
+
+  const copyText = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(question.questions_text);
+      toast.success("Copied to clipboard!");
+    } catch {
+      toast.error("Failed to copy");
+    }
+  }, [question.questions_text]);
+
+  const share = useCallback(async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `VivaVault - ${question.proctor_id}`,
+          text: question.questions_text,
+          url: `/proctor/${encodeURIComponent(question.proctor_id)}`,
+        });
+      } catch {
+        // User cancelled
+      }
+    } else {
+      copyText();
+    }
+  }, [question, copyText]);
+
+  return (
+    <Card className="group relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/5 hover:border-violet-500/20 hover:-translate-y-0.5">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.02] to-indigo-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      <CardHeader className="pb-3 relative">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href={`/proctor/${encodeURIComponent(question.proctor_id)}`}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-violet-600 dark:text-violet-400 hover:underline"
+              >
+                <User className="h-3.5 w-3.5" />
+                {highlightText(question.proctor_id, highlightTerms)}
+              </Link>
+              <Badge
+                variant="secondary"
+                className="text-xs font-medium bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
+              >
+                {question.subject}
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                Level {question.level}
+              </Badge>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={toggleBookmark}
+              title={bookmarked ? "Remove bookmark" : "Bookmark"}
+            >
+              {bookmarked ? (
+                <BookmarkCheck className="h-4 w-4 text-violet-500 fill-violet-500" />
+              ) : (
+                <Bookmark className="h-4 w-4" />
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={copyText}
+              title="Copy"
+            >
+              <Copy className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={share}
+              title="Share"
+            >
+              <Share2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="relative space-y-3">
+        <div className="text-sm leading-relaxed">
+          <ul className="list-disc list-inside space-y-1">
+            {question.questions_text.split('\n').map((line, idx) => {
+              const cleanLine = line.replace(/^•\s*/, '').trim();
+              if (!cleanLine) return null;
+              return (
+                <li key={idx} className="marker:text-violet-500">
+                  {highlightText(cleanLine, highlightTerms)}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        {question.advice && (
+          <div className="flex gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/20">
+            <MessageSquare className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
+              <span className="font-semibold">Advice: </span>
+              {highlightText(question.advice, highlightTerms)}
+            </p>
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          {question.tags?.map((tag) => (
+            <Badge
+              key={tag}
+              variant="outline"
+              className="text-[10px] px-2 py-0.5 font-normal text-muted-foreground"
+            >
+              {tag}
+            </Badge>
+          ))}
+          {question.viva_datetime && (
+            <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
+              <Calendar className="h-3 w-3" />
+              {format(new Date(question.viva_datetime), "MMM d, yyyy")}
+            </span>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
