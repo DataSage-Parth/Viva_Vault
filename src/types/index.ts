@@ -8,6 +8,7 @@ export interface Question {
   viva_datetime: string | null;
   tags: string[] | null;
   created_at: string;
+  upvotes?: number;
 }
 
 export interface Submission {
