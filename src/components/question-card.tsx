@@ -186,12 +186,12 @@ export function QuestionCard({ question, highlightTerms = [] }: QuestionCardProp
       <CardContent className="relative flex-1 flex flex-col min-h-0 pb-4">
         <div className="flex-1 overflow-y-auto custom-scrollbar -mr-5 pr-5 space-y-3 mb-3">
           <div className="text-sm leading-relaxed">
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc pl-5 space-y-2 marker:text-violet-500">
               {question.questions_text.split('\n').map((line, idx) => {
-                const cleanLine = line.replace(/^•\s*/, '').trim();
+                const cleanLine = line.replace(/^[-•*>\s]+/, '').trim();
                 if (!cleanLine) return null;
                 return (
-                  <li key={idx} className="marker:text-violet-500">
+                  <li key={idx} className="text-foreground/90 pl-1 leading-relaxed">
                     {highlightText(cleanLine, highlightTerms)}
                   </li>
                 );

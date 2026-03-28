@@ -93,19 +93,26 @@ export default function SubmitPage() {
       return;
     }
 
-    if (formData.proctor_id && !/^LEVEL[0-9]+_[0-9]+$/.test(formData.proctor_id)) {
-      toast.error("Invalid Proctor ID format.", { description: "Must match pattern e.g. LEVEL1_23" });
-      return;
-    }
+    const normalizedProctorId = formData.proctor_id ? formData.proctor_id.trim().toUpperCase() : "";
+    
+    const finalProctorId = /^LEVEL(1|2|3|4)_[0-9]+$/.test(normalizedProctorId)
+      ? normalizedProctorId
+      : "UNKNOWN";
 
     try {
       setIsSubmitting(true);
 
+      const cleanedQuestionsText = formData.questions_text
+        .split('\n')
+        .map(line => line.replace(/^[-•*>\s]+/, '').trim())
+        .filter(line => line !== '')
+        .join('\n');
+
       const payload = {
-        proctor_id: formData.proctor_id ? formData.proctor_id.toUpperCase() : "UNKNOWN",
+        proctor_id: finalProctorId,
         subject: formData.subject,
         level: isLevelRequired ? parseInt(formData.level) : null,
-        questions_text: formData.questions_text,
+        questions_text: cleanedQuestionsText,
         advice: formData.advice || null,
         viva_datetime: formData.viva_datetime ? new Date(formData.viva_datetime).toISOString() : null,
       };

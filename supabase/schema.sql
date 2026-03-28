@@ -95,28 +95,3 @@ create policy "Authenticated users can delete submissions"
   on public.submissions for delete
   to authenticated
   using (true);
-
--- ============================================
--- 4. SAMPLE DATA (Optional)
--- ============================================
-
--- Uncomment below to insert sample data for testing
-
-/*
-insert into public.questions (proctor_id, subject, level, questions_text, advice, tags) values
-('DR_SHARMA', 'MAD1', 1, 'What is an Activity in Android? Explain the Activity lifecycle with a diagram.', 'Focus on the lifecycle methods - onCreate, onStart, onResume, etc.', ARRAY['Activity', 'Lifecycle']),
-('DR_SHARMA', 'MAD1', 1, 'Explain the difference between implicit and explicit intents in Android.', 'Give real-world examples for both types.', ARRAY['Intent', 'Activity']),
-('DR_SHARMA', 'MAD1', 2, 'What is Room Database? How does it relate to SQLite?', 'Explain the three main components: Entity, DAO, Database.', ARRAY['Room', 'Database', 'SQLite', 'ORM']),
-('DR_PATEL', 'MAD1', 1, 'What is a Fragment? How is it different from an Activity?', 'Mention Fragment lifecycle and how it relates to Activity lifecycle.', ARRAY['Fragment', 'Activity', 'Lifecycle']),
-('DR_PATEL', 'MAD1', 2, 'Explain RecyclerView and its advantages over ListView.', 'Cover ViewHolder pattern and adapter implementation.', ARRAY['RecyclerView', 'ListView', 'Adapter', 'ViewHolder']),
-('DR_PATEL', 'MAD2', 1, 'What is Jetpack Compose? How does it differ from XML layouts?', 'Compare declarative vs imperative UI approaches.', ARRAY['Jetpack Compose', 'XML Layout']),
-('DR_KUMAR', 'MAD2', 1, 'Explain the MVVM architecture pattern in Android development.', 'Draw a diagram showing Model, View, and ViewModel relationships.', ARRAY['MVVM', 'ViewModel', 'Architecture']),
-('DR_KUMAR', 'MAD2', 2, 'What is Retrofit? How do you make API calls using Retrofit?', 'Show the interface definition and the Retrofit builder setup.', ARRAY['Retrofit', 'REST API', 'API Integration']),
-('DR_KUMAR', 'MAD2', 2, 'Explain dependency injection. What is Hilt and how does it simplify DI in Android?', 'Cover @Inject, @Module, @InstallIn annotations.', ARRAY['Dependency Injection', 'Hilt']),
-('DR_GUPTA', 'MAD1', 1, 'What are the HTTP methods? Explain GET, POST, PUT, DELETE with examples.', 'Relate each method to CRUD operations.', ARRAY['HTTP methods', 'REST API', 'GET', 'POST', 'PUT', 'DELETE']),
-('DR_GUPTA', 'MAD1', 2, 'How do you handle runtime permissions in Android?', 'Explain the flow: check → request → handle result.', ARRAY['Permission', 'Runtime Permission']),
-('DR_GUPTA', 'MAD2', 1, 'What is Flutter? Explain the widget tree concept.', 'Distinguish between StatefulWidget and StatelessWidget.', ARRAY['Flutter', 'Widget', 'StatefulWidget', 'StatelessWidget']),
-('DR_SINGH', 'MAD2', 1, 'Explain state management in Flutter. Compare Provider and Bloc.', 'Mention when to use each approach.', ARRAY['State Management', 'Provider', 'Bloc', 'Flutter']),
-('DR_SINGH', 'MAD2', 2, 'What is Firebase? Explain Firebase Cloud Messaging (FCM) for push notifications.', NULL, ARRAY['Firebase', 'FCM', 'Push Notification']),
-('DR_SINGH', 'MAD1', 1, 'What is the difference between MVC and MVP patterns?', 'Draw diagrams for both patterns.', ARRAY['MVC', 'MVP', 'Architecture']);
-*/
