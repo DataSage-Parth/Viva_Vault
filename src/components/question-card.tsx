@@ -116,7 +116,7 @@ export function QuestionCard({ question, highlightTerms = [] }: QuestionCardProp
   };
 
   return (
-    <Card className="group flex flex-col h-full relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/5 hover:border-violet-500/20 hover:-translate-y-0.5">
+    <Card className="group flex flex-col h-[450px] relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/5 hover:border-violet-500/20 hover:-translate-y-0.5">
       <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.02] to-indigo-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       <CardHeader className="pb-3 relative">
@@ -183,32 +183,34 @@ export function QuestionCard({ question, highlightTerms = [] }: QuestionCardProp
         </div>
       </CardHeader>
 
-      <CardContent className="relative flex-1 flex flex-col space-y-3">
-        <div className="text-sm leading-relaxed">
-          <ul className="list-disc list-inside space-y-1">
-            {question.questions_text.split('\n').map((line, idx) => {
-              const cleanLine = line.replace(/^•\s*/, '').trim();
-              if (!cleanLine) return null;
-              return (
-                <li key={idx} className="marker:text-violet-500">
-                  {highlightText(cleanLine, highlightTerms)}
-                </li>
-              );
-            })}
-          </ul>
+      <CardContent className="relative flex-1 flex flex-col min-h-0 pb-4">
+        <div className="flex-1 overflow-y-auto custom-scrollbar -mr-5 pr-5 space-y-3 mb-3">
+          <div className="text-sm leading-relaxed">
+            <ul className="list-disc list-inside space-y-1">
+              {question.questions_text.split('\n').map((line, idx) => {
+                const cleanLine = line.replace(/^•\s*/, '').trim();
+                if (!cleanLine) return null;
+                return (
+                  <li key={idx} className="marker:text-violet-500">
+                    {highlightText(cleanLine, highlightTerms)}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {question.advice && (
+            <div className="flex gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/20 shrink-0">
+              <MessageSquare className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              <p className="text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
+                <span className="font-semibold">Advice: </span>
+                {highlightText(question.advice, highlightTerms)}
+              </p>
+            </div>
+          )}
         </div>
 
-        {question.advice && (
-          <div className="flex gap-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/20">
-            <MessageSquare className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-            <p className="text-xs text-amber-800 dark:text-amber-200 leading-relaxed">
-              <span className="font-semibold">Advice: </span>
-              {highlightText(question.advice, highlightTerms)}
-            </p>
-          </div>
-        )}
-
-        <div className="flex flex-wrap items-center gap-2 pt-3 mt-auto justify-between w-full border-t border-border/20">
+        <div className="flex flex-wrap items-center gap-2 pt-3 mt-auto justify-between w-full border-t border-border/20 shrink-0">
           <div className="flex flex-wrap gap-2">
             {question.tags?.map((tag) => (
               <Badge
