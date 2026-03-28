@@ -42,6 +42,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { Analytics } from "@vercel/analytics/react";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,6 +67,7 @@ export default function RootLayout({
           <Footer />
           <Toaster richColors position="bottom-right" />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
