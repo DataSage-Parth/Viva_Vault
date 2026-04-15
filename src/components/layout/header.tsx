@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { Send, Search, Menu, X, BookOpen, Flame } from "lucide-react";
+import { Send, Search, Menu, X, BookOpen, Flame, Code2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/search", label: "Search", icon: Search },
   { href: "/submit", label: "Submit", icon: Send },
   { href: "/most-asked", label: "Most Asked", icon: Flame },
+  { href: "/coding-questions", label: "Coding Q&A", icon: Code2 },
 ];
 
 export function Header() {
