@@ -107,19 +107,26 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
           </button>
 
           <div className="flex gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`rounded-md px-3 py-1 transition-all duration-300 ${
-                  currentPage === page
-                    ? "bg-purple-600 text-white"
-                    : "text-zinc-400 hover:bg-zinc-800"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
+            {(() => {
+              const windowSize = 3;
+              let start = Math.max(1, currentPage - Math.floor(windowSize / 2));
+              const end = Math.min(totalPages, start + windowSize - 1);
+              start = Math.max(1, end - windowSize + 1);
+
+              return Array.from({ length: end - start + 1 }, (_, i) => start + i).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`rounded-md px-3 py-1 transition-all duration-300 ${
+                    currentPage === page
+                      ? "bg-purple-600 text-white"
+                      : "text-zinc-400 hover:bg-zinc-800"
+                  }`}
+                >
+                  {page}
+                </button>
+              ));
+            })()}
           </div>
 
           <button
