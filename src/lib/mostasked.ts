@@ -158,15 +158,7 @@ export const mostAsked = {
             "What is OOP?",
             "What is inheritance?"
         ],
-        DEPLOYMENT: [
-            "What is WSGI?",
-            "What is Celery?",
-            "What is Redis?",
-            "What is caching?",
-            "What is load balancing?",
-            "What is horizontal vs vertical scaling?",
-            "Can we modify DB schema in production?"
-        ],
+
         LIVE_CODING: [
             "Can you restrict username to 10 characters?",
             "Can you add password validation rules?",
@@ -315,6 +307,16 @@ export const mostAsked = {
         "What is race condition?",
         "What is memory leak in frontend?",
         "How to prevent excessive API calls?"
+    ],
+
+    DEPLOYMENT: [
+        "What is WSGI?",
+        "What is Celery?",
+        "What is Redis?",
+        "What is caching?",
+        "What is load balancing?",
+        "What is horizontal vs vertical scaling?",
+        "Can we modify DB schema in production?"
     ]
     }
 };

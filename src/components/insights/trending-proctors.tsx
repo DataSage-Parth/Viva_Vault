@@ -16,6 +16,7 @@ export function TrendingProctors({ questions, limit = 5 }: TrendingProctorsProps
   });
 
   const trending = Object.entries(proctorCounts)
+    .filter(([id]) => id !== "UNKNOWN")
     .map(([id, count]) => ({ id, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);

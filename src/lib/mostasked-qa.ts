@@ -590,40 +590,6 @@ export const mostAskedQA: SubjectQAData[] = [
           },
         ],
       },
-      {
-        name: "Deployment",
-        icon: "rocket",
-        questions: [
-          {
-            question: "What is WSGI?",
-            answer: "Web Server Gateway Interface is a standard that allows Python web applications to communicate with web servers like Nginx or Apache.",
-          },
-          {
-            question: "What is Celery?",
-            answer: "Celery is an asynchronous task queue that handles running heavy or time-consuming tasks in the background.",
-          },
-          {
-            question: "What is Redis?",
-            answer: 'Redis is an in-memory data store used as a database, cache, or message broker, often used as the "middleman" for Celery.',
-          },
-          {
-            question: "What is caching?",
-            answer: "Caching is the process of storing copies of data in a temporary storage location so that future requests for that data can be served faster.",
-          },
-          {
-            question: "What is load balancing?",
-            answer: "It is the process of distributing incoming network traffic across multiple servers to ensure no single server becomes overwhelmed.",
-          },
-          {
-            question: "What is horizontal vs vertical scaling?",
-            answer: "Horizontal scaling is adding more servers to your pool, while vertical scaling is adding more power (CPU/RAM) to your existing server.",
-          },
-          {
-            question: "Can we modify DB schema in production?",
-            answer: "Yes, but it should be done using migration tools like Flask-Migrate to update the database structure without losing existing data.",
-          },
-        ],
-      },
     ],
   },
   {
@@ -1064,6 +1030,40 @@ export const mostAskedQA: SubjectQAData[] = [
           {
             question: "How to prevent excessive API calls?",
             answer: "I use debouncing on search inputs, cache results where possible, and ensure components don't re-fetch data unnecessarily.",
+          },
+        ],
+      },
+      {
+        name: "Deployment",
+        icon: "rocket",
+        questions: [
+          {
+            question: "What is WSGI?",
+            answer: "Web Server Gateway Interface is a standard that allows Python web applications to communicate with web servers like Nginx or Apache.",
+          },
+          {
+            question: "What is Celery?",
+            answer: "Celery is an asynchronous task queue that handles running heavy or time-consuming tasks in the background.",
+          },
+          {
+            question: "What is Redis?",
+            answer: 'Redis is an in-memory data store used as a database, cache, or message broker, often used as the "middleman" for Celery.',
+          },
+          {
+            question: "What is caching?",
+            answer: "Caching is the process of storing copies of data in a temporary storage location so that future requests for that data can be served faster.",
+          },
+          {
+            question: "What is load balancing?",
+            answer: "It is the process of distributing incoming network traffic across multiple servers to ensure no single server becomes overwhelmed.",
+          },
+          {
+            question: "What is horizontal vs vertical scaling?",
+            answer: "Horizontal scaling is adding more servers to your pool, while vertical scaling is adding more power (CPU/RAM) to your existing server.",
+          },
+          {
+            question: "Can we modify DB schema in production?",
+            answer: "Yes, but it should be done using migration tools like Flask-Migrate to update the database structure without losing existing data.",
           },
         ],
       },

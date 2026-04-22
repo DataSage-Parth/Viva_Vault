@@ -21,13 +21,20 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const isLevelRequired = ["MAD1", "MAD2", "MLP"].includes(subject);
-
-  const filteredQuestions = questions.filter((q) => {
-    if (q.subject !== subject) return false;
-    if (isLevelRequired && q.level !== parseInt(level)) return false;
-    return true;
-  });
+  const filteredQuestions = questions
+    .filter((q) => {
+      if (q.subject !== subject) return false;
+      if (subject !== "BDM" && q.level !== parseInt(level)) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      // Cards with no date go to the end
+      if (!a.viva_datetime && !b.viva_datetime) return 0;
+      if (!a.viva_datetime) return 1;
+      if (!b.viva_datetime) return -1;
+      // Latest dates come first
+      return new Date(b.viva_datetime).getTime() - new Date(a.viva_datetime).getTime();
+    });
 
   const itemsPerPage = 6;
   const totalPages = Math.ceil(filteredQuestions.length / itemsPerPage);
@@ -53,11 +60,7 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
               const strVal = val || "MAD1";
               setSubject(strVal);
               setCurrentPage(1);
-              if (!["MAD1", "MAD2", "MLP"].includes(strVal)) {
-                setLevel("");
-              } else if (!level) {
-                setLevel("1");
-              }
+              if (!level) setLevel("1");
             }}
           >
             <SelectTrigger className="w-[160px] sm:w-[180px] bg-card/50 backdrop-blur-sm border-border/50">
@@ -72,7 +75,7 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
             </SelectContent>
           </Select>
 
-          {isLevelRequired && (
+          {subject !== "BDM" && (
             <Select value={level} onValueChange={(val) => {
               setLevel(val || "1");
               setCurrentPage(1);
@@ -92,7 +95,7 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
       <div ref={gridRef} className="scroll-mt-24">
         <SectionGrid
           questions={currentData}
-          emptyMessage={`No questions found for ${subject}${isLevelRequired ? ` Level ${level}` : ""}.`}
+          emptyMessage={`No questions found for ${subject}${subject !== "BDM" ? ` Level ${level}` : ""}.`}
         />
       </div>
 
@@ -117,11 +120,10 @@ export function BrowseQuestions({ questions }: BrowseQuestionsProps) {
                 <button
                   key={page}
                   onClick={() => handlePageChange(page)}
-                  className={`rounded-md px-3 py-1 transition-all duration-300 ${
-                    currentPage === page
+                  className={`rounded-md px-3 py-1 transition-all duration-300 ${currentPage === page
                       ? "bg-purple-600 text-white"
                       : "text-zinc-400 hover:bg-zinc-800"
-                  }`}
+                    }`}
                 >
                   {page}
                 </button>

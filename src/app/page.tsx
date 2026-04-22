@@ -43,7 +43,7 @@ export default async function Home() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-            Explore previous questions, learn from others' experiences, and ace your viva.
+            Explore previous questions, learn from others&apos; experiences, and ace your viva.
           </p>
 
           <div className="max-w-2xl mx-auto pt-4 relative z-10">

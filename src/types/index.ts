@@ -1,8 +1,8 @@
 export interface Question {
   id: string;
   proctor_id: string;
-  subject: 'MAD1' | 'MAD2';
-  level: 1 | 2;
+  subject: 'MAD1' | 'MAD2' | 'MLP' | 'BDM' | 'GENAI';
+  level: 1 | 2 | null;
   questions_text: string;
   advice: string | null;
   viva_datetime: string | null;
@@ -14,8 +14,8 @@ export interface Question {
 export interface Submission {
   id: string;
   proctor_id: string;
-  subject: 'MAD1' | 'MAD2';
-  level: 1 | 2;
+  subject: 'MAD1' | 'MAD2' | 'MLP' | 'BDM' | 'GENAI';
+  level: 1 | 2 | null;
   questions_text: string;
   advice: string | null;
   viva_datetime: string | null;
@@ -30,5 +30,5 @@ export interface ProctorStats {
   common_topics: { topic: string; count: number }[];
 }
 
-export type Subject = 'MAD1' | 'MAD2';
-export type Level = 1 | 2;
+export type Subject = 'MAD1' | 'MAD2' | 'MLP' | 'BDM' | 'GENAI';
+export type Level = 1 | 2 | null;

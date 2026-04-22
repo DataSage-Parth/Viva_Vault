@@ -23,13 +23,15 @@ export default function SubmitPage() {
   const supabase = createClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const today = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
     proctor_id: "",
     subject: "",
     level: "",
     questions_text: "",
     advice: "",
-    viva_datetime: "",
+    viva_datetime: `${today}T12:00:00`,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,16 +49,7 @@ export default function SubmitPage() {
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    if (name === "subject") {
-      const isLevelRequired = ["MAD1", "MAD2", "MLP"].includes(value);
-      setFormData((prev) => ({ 
-        ...prev, 
-        subject: value,
-        level: isLevelRequired ? prev.level : "" 
-      }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -86,9 +79,9 @@ export default function SubmitPage() {
     e.preventDefault();
     if (isSubmitting) return;
 
-    const isLevelRequired = ["MAD1", "MAD2", "MLP"].includes(formData.subject);
+    const needsLevel = formData.subject !== "BDM";
 
-    if (!formData.subject || (isLevelRequired && !formData.level) || !formData.questions_text) {
+    if (!formData.subject || (needsLevel && !formData.level) || !formData.questions_text) {
       toast.error("Please fill in all required fields.");
       return;
     }
@@ -111,7 +104,7 @@ export default function SubmitPage() {
       const payload = {
         proctor_id: finalProctorId,
         subject: formData.subject,
-        level: isLevelRequired ? parseInt(formData.level) : null,
+        level: formData.subject !== "BDM" ? parseInt(formData.level) : null,
         questions_text: cleanedQuestionsText,
         advice: formData.advice || null,
         viva_datetime: formData.viva_datetime ? new Date(formData.viva_datetime).toISOString() : null,
@@ -180,6 +173,7 @@ export default function SubmitPage() {
                   id="viva_datetime"
                   name="viva_datetime"
                   type="date"
+                  max={today}
                   value={formData.viva_datetime ? formData.viva_datetime.split("T")[0] : ""}
                   onChange={handleChange}
                   className="bg-background text-sm"
@@ -202,7 +196,7 @@ export default function SubmitPage() {
                 </Select>
               </div>
 
-              {["MAD1", "MAD2", "MLP"].includes(formData.subject) && (
+              {formData.subject && formData.subject !== "BDM" && (
                 <div className="space-y-2">
                   <Label htmlFor="level" className="text-sm font-semibold">Level <span className="text-destructive">*</span></Label>
                   <Select value={formData.level} onValueChange={(val) => handleSelectChange("level", val || "")} required>
