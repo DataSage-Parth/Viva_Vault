@@ -1,4 +1,13 @@
-import { BookOpen, Heart, Sparkles, FileCode2, Search, Send, BarChart3 } from "lucide-react";
+import {
+  BookOpen,
+  Heart,
+  Sparkles,
+  FileCode2,
+  Search,
+  Send,
+  BarChart3,
+  Youtube,
+} from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
@@ -20,10 +29,8 @@ export function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background/50 backdrop-blur-sm">
       <div className="mx-auto max-w-6xl px-6 pt-14 pb-8">
-
         {/* Main Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] gap-12 lg:gap-16 mb-12">
-
           {/* Brand */}
           <div className="space-y-5">
             <div className="flex items-center gap-2.5">
@@ -70,6 +77,7 @@ export function Footer() {
             <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest">
               Resources
             </h3>
+
             <ul className="space-y-2.5 text-sm">
               {resourceLinks.map((link) => (
                 <li key={link.href + link.label}>
@@ -82,9 +90,21 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+
+              {/* YouTube Playlist */}
+              <li>
+                <a
+                  href="https://www.youtube.com/playlist?list=PLKg-vW748IxmjeW8hrbv68iqWdqlmV8YI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-red-600 transition-colors duration-200 group"
+                >
+                  <Youtube className="h-3.5 w-3.5 opacity-70 group-hover:text-red-600 group-hover:opacity-100 transition-all duration-200" />
+                  MAD 1 Viva Preparation
+                </a>
+              </li>
             </ul>
           </div>
-
         </div>
 
         {/* Divider */}
@@ -99,11 +119,11 @@ export function Footer() {
           </p>
 
           <p className="text-xs text-muted-foreground/50 max-w-lg sm:text-right leading-relaxed">
-            Created for educational purposes only. Questions are based on students&apos; personal
-            experiences and may not reflect actual exam content.
+            Created for educational purposes only. Questions are based on
+            students&apos; personal experiences and may not reflect actual exam
+            content.
           </p>
         </div>
-
       </div>
     </footer>
   );
