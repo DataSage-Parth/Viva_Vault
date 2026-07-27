@@ -6,7 +6,7 @@ import {
   Search,
   Send,
   BarChart3,
-  Youtube,
+  PlayCircle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -37,14 +37,16 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 shadow-md shadow-violet-500/20">
                 <BookOpen className="h-4.5 w-4.5 text-white" />
               </div>
+
               <span className="text-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
                 VivaVault
               </span>
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              A student-driven platform to explore real viva questions and prepare smarter.
-              Stop guessing — start learning from actual viva experiences.
+              A student-driven platform to explore real viva questions and
+              prepare smarter. Stop guessing — start learning from actual viva
+              experiences.
             </p>
 
             <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
@@ -58,6 +60,7 @@ export function Footer() {
             <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest">
               Navigation
             </h3>
+
             <ul className="space-y-2.5 text-sm">
               {navLinks.map((link) => (
                 <li key={link.href + link.label}>
@@ -91,7 +94,6 @@ export function Footer() {
                 </li>
               ))}
 
-              {/* YouTube Playlist */}
               <li>
                 <a
                   href="https://www.youtube.com/playlist?list=PLKg-vW748IxmjeW8hrbv68iqWdqlmV8YI"
@@ -99,7 +101,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-red-600 transition-colors duration-200 group"
                 >
-                  <Youtube className="h-3.5 w-3.5 opacity-70 group-hover:text-red-600 group-hover:opacity-100 transition-all duration-200" />
+                  <PlayCircle className="h-3.5 w-3.5 text-red-500 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-200" />
                   MAD 1 Viva Preparation
                 </a>
               </li>
